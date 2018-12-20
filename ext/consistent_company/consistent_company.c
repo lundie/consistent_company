@@ -23,18 +23,18 @@ static VALUE rb_CompanyNamer(VALUE self)
 	char * s = pSelf;
 	if (*pSelf == '\0')
 		return self;
-			
+
 	// calc size of work strings
 	// while processing we turn & = AND, + = PLUS
 	// and we add space at front and back
 	while (s = strpbrk(s, "&+"))
-	{	
+	{
 		workLen +=3; // worst case we add 3 chars
 		s++;
 	}
 	workLen += 90;	// add space front and back
 	//////////////
-	
+
 	// for company only
 	int i;
 	char ch;
@@ -46,10 +46,10 @@ static VALUE rb_CompanyNamer(VALUE self)
 	char * inString;
 	strcpy(workString, pSelf);
 	inString = workString;
-	
+
 	for( i = 0; inString[i]; i++)
 		inString[i] = toupper( inString[i] );
-	
+
 	inString = trimwhitespace(inString);
 	int len = (int)strlen(inString);
 	for (i = 0; i < len; i++)
@@ -80,7 +80,7 @@ static VALUE rb_CompanyNamer(VALUE self)
 		{
 			// ..(xx)..
 			inString[left1++] = ' ';
-			memmove(&inString[left1], &inString[right1+1], strlen(inString+right1+1)+1);		
+			memmove(&inString[left1], &inString[right1+1], strlen(inString+right1+1)+1);
 		}
 		else
 			// ..(xx
@@ -162,23 +162,23 @@ static VALUE rb_CompanyNamer(VALUE self)
 			strcat(returnString, " ");
 		}
 	}
-	
+
 	str_replace(returnString, " AND ", " & ");
-	
+
 	returnString = trimwhitespace(returnString);
 	returnString = TransformCompany(returnString);
 	VALUE return_value = rb_str_new2(trimwhitespace(returnString));
 	free(returnString);
 	free(workString);
 	return return_value;
-} 
+}
 
 /*
 TransformCompany
 given a string transform typical company name parts to common abbreviations
 thereby normailizing the name and making exact matching of different names easier
 example:
-FIRST FEDERAL SAVINGS becomes 1ST FEDERAL SAVINGS 
+FIRST FEDERAL SAVINGS becomes 1ST FEDERAL SAVINGS
 */
 char * TransformCompany(char * resultString)
 {
@@ -247,12 +247,12 @@ char * TransformCompany(char * resultString)
 	str_replace(s, " MANAGEMENT ", " MGT ");
 	str_replace(s, " MGMT ", " MGT ");
 
-	s = trimwhitespace(s);	
+	s = trimwhitespace(s);
 	spaceLoc = strstr(s, " ");
 	//spaceLoc = resultString.IndexOf(" ");
 	if (spaceLoc && strlen(s) > 3) // More than one word and more than 3 chars
 	{
-		// Check for "A" as the first word, and 
+		// Check for "A" as the first word, and
 		// make sure that second word is not an initital or the word "PLUS"
 		// For example: "A C & R" do not remove "A"; "A TOUCH OF CLASS" remove the "A"
 		if (strncmp(s, "A ",  2) == 0 &&
@@ -295,7 +295,7 @@ char * TransformCompany(char * resultString)
 
 /*
 IsCompanyWord
-returns 1 if the null terminated word passed in inWord 
+returns 1 if the null terminated word passed in inWord
 is a typical Company word. Add more company words here if desired.
 return 0 if not a Company word
 */
@@ -346,11 +346,7 @@ int IsCompanyWord(char * inWord)
 		strcmp(inWord, "LTD") == 0 ||
 		strcmp(inWord, "PC") == 0 ||
 		strcmp(inWord, "PLC") == 0 ||
-		strcmp(inWord, "PROD") == 0 ||
-		strcmp(inWord, "PRODS") == 0 ||
-		strcmp(inWord, "PRODUCT") == 0 ||
 		strcmp(inWord, "PRODUCTIONS") == 0 ||
-		strcmp(inWord, "PRODUCTS") == 0 ||
 		strcmp(inWord, "TR") == 0 ||
 		strcmp(inWord, "TRADE") == 0 ||
 	   	strcmp(inWord, "PBC") == 0 ||
@@ -384,7 +380,7 @@ char * trimwhitespace(char *str)
 	// Write new null terminator
 	*(end+1) = 0;
 	memmove(start, str, strlen(str)+1);
-	
+
 	return start;
 }
 
