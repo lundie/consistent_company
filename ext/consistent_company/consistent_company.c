@@ -338,6 +338,7 @@ int IsCompanyWord(char * inWord)
 		strcmp(inWord, "HOLDINGS") == 0 ||
 		strcmp(inWord, "INC") == 0 ||
 		strcmp(inWord, "INCORPORATED") == 0 ||
+		strcmp(inWord, "INT") == 0 ||
 		strcmp(inWord, "LIMITED") == 0 ||
 		strcmp(inWord, "LLC") == 0 ||
 		strcmp(inWord, "LLP") == 0 ||
