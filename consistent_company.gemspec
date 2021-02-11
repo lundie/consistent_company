@@ -36,12 +36,12 @@ Gem::Specification.new do |s|
       # s.add_runtime_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_runtime_dependency(%q<rake-compiler>, ["~> 0.7.6"])
     else
-      s.add_dependency(%q<bundler>, ["~> 1.2"])
+      s.add_dependency(%q<bundler>, [">= 1.2"])
       # s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_dependency(%q<rake-compiler>, ["~> 0.7.6"])
     end
   else
-    s.add_dependency(%q<bundler>, ["~> 1.2"])
+    s.add_dependency(%q<bundler>, [">= 1.2"])
     # s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
     s.add_dependency(%q<rake-compiler>, ["~> 0.7.6"])
   end
